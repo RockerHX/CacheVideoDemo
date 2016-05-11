@@ -17,6 +17,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingString:@"/Video"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:path]) {
+        return [fileManager createDirectoryAtPath:path withIntermediateDirectories:nil attributes:nil error:nil];
+    }
+    
+    NSUInteger mByte = 1024 * 1024;
+    NSURLCache *urlCache = [[NSURLCache alloc] initWithMemoryCapacity:(100 * mByte) diskCapacity:(400 * mByte) diskPath:path];
+    [NSURLCache setSharedURLCache:urlCache];
     return YES;
 }
 
