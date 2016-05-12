@@ -8,17 +8,21 @@
 
 #import "HXSessionDelegateViewController.h"
 
+
 @interface HXSessionDelegateViewController () <
 NSURLSessionDownloadDelegate
 >
 @end
 
+
 @implementation HXSessionDelegateViewController
 
+#pragma mark - View Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
+#pragma mark - Event Response
 - (IBAction)downButtonPressed {
     NSURL *url = [NSURL URLWithString:@"http://miadata1.ufile.ucloud.cn/piano_test/173.mp4"];
     
@@ -29,6 +33,17 @@ NSURLSessionDownloadDelegate
     
     NSURLSessionDownloadTask *downLoadTask = [session downloadTaskWithRequest:request];
     [downLoadTask resume];
+}
+
+#pragma mark - Private Methods
+- (void)setDownloadProgress:(double)progress {
+    NSString *progressStr = [NSString stringWithFormat:@"%.1f", progress * 100];
+    progressStr = [progressStr stringByAppendingString:@"%"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _progressView.progress = progress;
+        _progressLabel.text = progressStr;
+    });
 }
 
 #pragma mark - NSURLSessionDownloadDelegate Methods
@@ -42,21 +57,15 @@ NSURLSessionDownloadDelegate
 //    NSLog(@"progress:%f", progress);
 }
 
-- (void)setDownloadProgress:(double)progress {
-    NSString *progressStr = [NSString stringWithFormat:@"%.1f", progress * 100];
-    progressStr = [progressStr stringByAppendingString:@"%"];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _progressView.progress = progress;
-        _progressLabel.text = progressStr;
-    });
-}
-
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
 //    NSLog(@"%@", location);
-    NSData *data = [NSData dataWithContentsOfURL:location];
-    NSCachedURLResponse *cachedURLResponse = [[NSCachedURLResponse alloc] initWithResponse:downloadTask.response data:data];
-    [[NSURLCache sharedURLCache] storeCachedResponse:cachedURLResponse forRequest:downloadTask.originalRequest];
+    NSURLRequest *request = downloadTask.originalRequest;
+    NSCachedURLResponse *cachedResponse = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+    if (!cachedResponse.data) {
+        NSData *data = [NSData dataWithContentsOfURL:location];
+        NSCachedURLResponse *cachedURLResponse = [[NSCachedURLResponse alloc] initWithResponse:downloadTask.response data:data];
+        [[NSURLCache sharedURLCache] storeCachedResponse:cachedURLResponse forRequest:request];
+    }
     NSLog(@"DiskCache: %@ of %@", @([[NSURLCache sharedURLCache] currentDiskUsage]), @([[NSURLCache sharedURLCache] diskCapacity]));
     NSLog(@"MemoryCache: %@ of %@", @([[NSURLCache sharedURLCache] currentMemoryUsage]), @([[NSURLCache sharedURLCache] memoryCapacity]));
 }
