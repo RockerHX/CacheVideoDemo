@@ -1,19 +1,19 @@
 //
-//  ViewController.m
+//  HXSessionDelegateViewController.m
 //  CacheVideoDemo
 //
 //  Created by miaios on 16/5/11.
 //  Copyright © 2016年 Mia Music. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "HXSessionDelegateViewController.h"
 
-@interface ViewController () <
+@interface HXSessionDelegateViewController () <
 NSURLSessionDownloadDelegate
 >
 @end
 
-@implementation ViewController
+@implementation HXSessionDelegateViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,15 +26,6 @@ NSURLSessionDownloadDelegate
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue new]];
     NSCachedURLResponse *cachedResponse = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
     NSLog(cachedResponse ? @"Cached response found!" : @"No cached response found.");
-    
-    //创建一个下载任务
-//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSLog(@"%@", location);
-//        NSData *data = [NSData dataWithContentsOfURL:location];
-//        NSCachedURLResponse *cachedURLResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:data];
-//        [[NSURLCache sharedURLCache] storeCachedResponse:cachedURLResponse forRequest:request];
-//    }];
-//    [task resume];
     
     NSURLSessionDownloadTask *downLoadTask = [session downloadTaskWithRequest:request];
     [downLoadTask resume];

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  HXSessionDelegateViewController.h
 //  CacheVideoDemo
 //
 //  Created by miaios on 16/5/11.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ViewController : UIViewController
+@interface HXSessionDelegateViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (weak, nonatomic) IBOutlet        UILabel *progressLabel;

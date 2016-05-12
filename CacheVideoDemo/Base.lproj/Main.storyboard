@@ -80,12 +80,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K53-Wn-3hW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-213" y="381"/>
+            <point key="canvasLocation" x="-233" y="381"/>
         </scene>
-        <!--DownLoad By Block-->
+        <!--HXSessionBlockViewController-->
         <scene sceneID="Lay-HL-tMb">
             <objects>
-                <viewController id="PEL-gN-oeW" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HXSessionBlockViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PEL-gN-oeW" userLabel="HXSessionBlockViewController" customClass="HXSessionBlockViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5s7-fT-zfP"/>
                         <viewControllerLayoutGuide type="bottom" id="1FW-8d-len"/>
@@ -97,6 +97,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeB-hs-aSc">
                                 <rect key="frame" x="124" y="269" width="73" height="30"/>
                                 <state key="normal" title="DownLoad"/>
+                                <connections>
+                                    <action selector="downButtonPressed" destination="PEL-gN-oeW" eventType="touchUpInside" id="fBS-vn-EOs"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,12 +128,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFH-DS-orj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-599" y="381"/>
+            <point key="canvasLocation" x="-675" y="381"/>
         </scene>
-        <!--DownLoad By Delegate-->
+        <!--HXSessionDelegateViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HXSessionDelegateViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" userLabel="HXSessionDelegateViewController" customClass="HXSessionDelegateViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
