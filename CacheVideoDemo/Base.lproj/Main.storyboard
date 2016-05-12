@@ -27,18 +27,27 @@
                                     <action selector="downButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="AzX-gO-6Ha"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOm-nc-zIi">
+                                <rect key="frame" x="139" y="318" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Wwg-CF-VGG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="112" id="3TE-wt-qaR"/>
+                            <constraint firstItem="FOm-nc-zIi" firstAttribute="centerX" secondItem="FTG-Yp-0Oe" secondAttribute="centerX" id="41b-xx-et8"/>
                             <constraint firstAttribute="trailing" secondItem="FTG-Yp-0Oe" secondAttribute="trailing" constant="40" id="5SK-xf-H5i"/>
                             <constraint firstItem="Wwg-CF-VGG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DgE-Eo-vT5"/>
                             <constraint firstItem="FTG-Yp-0Oe" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="G6X-Pn-sq9"/>
                             <constraint firstItem="FTG-Yp-0Oe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KbD-kr-irV"/>
+                            <constraint firstItem="FOm-nc-zIi" firstAttribute="top" secondItem="FTG-Yp-0Oe" secondAttribute="bottom" constant="33" id="rZx-LH-xvR"/>
                             <constraint firstItem="FTG-Yp-0Oe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="tXm-JZ-QNj"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressLabel" destination="FOm-nc-zIi" id="028-L3-Kfd"/>
                         <outlet property="progressView" destination="FTG-Yp-0Oe" id="58x-L6-1zV"/>
                     </connections>
                 </viewController>

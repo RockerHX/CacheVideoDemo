@@ -12,6 +12,7 @@
 @interface ViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet        UILabel *progressLabel;
 
 - (IBAction)downButtonPressed;
 

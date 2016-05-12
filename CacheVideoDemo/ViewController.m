@@ -8,34 +8,19 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
-
+@interface ViewController () <
+NSURLSessionDownloadDelegate
+>
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-//    NSURL *url = [NSURL URLWithString:@"http://miadata1.ufile.ucloud.cn/piano_test/173.mp4"];
-//    
-//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    configuration.requestCachePolicy = NSURLRequestReturnCacheDataElseLoad;
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-//    [session downloadTaskWithURL:url];
-//    [session getTasksWithCompletionHandler:
-//     ^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
-//         NSLog(@"dataTasks:%@", dataTasks);
-//         NSLog(@"uploadTasks:%@", uploadTasks);
-//         NSLog(@"downloadTasks:%@", downloadTasks);
-//    }];
-    
-    
     
     //1.URL
 //    NSString *urlStr = @"http://miadata1.ufile.ucloud.cn/piano_test/173.mp4";
-//    NSString *urlStr = @"http://down.bigbaicai.com/down/BigBaiCai_v5.exe";
+//    NSString *urlStr = @"";
 //    NSURL *url = [NSURL URLWithString:urlStr];
 //    
 //    //2.NSURLRequest
@@ -71,32 +56,47 @@
 }
 
 - (IBAction)downButtonPressed {
-    //创建下载图片的url
     NSURL *url = [NSURL URLWithString:@"http://miadata1.ufile.ucloud.cn/piano_test/173.mp4"];
     
-    //创建网络请求配置类
-    NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    //创建网络会话
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue new]];
-    
-    //创建请求并设置缓存策略以及超时时长
-    NSURLRequest *imgRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.f];
-    //*也可通过configuration.requestCachePolicy 设置缓存策略
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue new]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:10.0f];
     
     //创建一个下载任务
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:imgRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-//        //下载完成后获取数据 此时已经自动缓存到本地，下次会直接从本地缓存获取，不再进行网络请求
-//        NSData * data = [NSData dataWithContentsOfURL:location];
-//        
-//        //回到主线程
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//        });
-        NSLog(@"%@", location);
-    }];
+//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        NSLog(@"%@", location);
+//    }];
+    //创建一个下载任务
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request];
+    
     //启动下载任务
     [task resume];
+}
+
+#pragma mark - Private
+- (void)setDownloadProgress:(double)progress {
+    NSString *progressStr = [NSString stringWithFormat:@"%.1f", progress * 100];
+    progressStr = [progressStr stringByAppendingString:@"%"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _progressView.progress = progress;
+        _progressLabel.text = progressStr;
+    });
+}
+
+#pragma mark - NSURLSessionDelegate Methods
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    NSLog(@"didWriteData:%@", @(bytesWritten).stringValue);
+    NSLog(@"totalBytesWritten:%@", @(totalBytesWritten).stringValue);
+    NSLog(@"totalBytesExpectedToWrite:%@", @(totalBytesExpectedToWrite).stringValue);
+    
+    double progress = totalBytesWritten / (double)totalBytesExpectedToWrite;
+    [self setDownloadProgress:progress];
+    NSLog(@"progress:%f", progress);
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    NSLog(@"%@", location);
 }
 
 @end
