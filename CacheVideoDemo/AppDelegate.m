@@ -18,10 +18,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    NSUInteger mByte = 1024 * 1024;
-    NSURLCache *urlCache = [[NSURLCache alloc] initWithMemoryCapacity:(100 * mByte) diskCapacity:(400 * mByte) diskPath:@"Video"];
+    NSUInteger megabytes = 1024 * 1024;
+    NSURLCache *urlCache = [[NSURLCache alloc] initWithMemoryCapacity:(250 * megabytes) diskCapacity:(250 * megabytes) diskPath:@"Video"];
     [NSURLCache setSharedURLCache:urlCache];
-    sleep(1);
     
     return YES;
 }
