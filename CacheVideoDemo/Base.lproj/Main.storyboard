@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UDW-lt-1pz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UDW-lt-1pz">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -17,7 +18,20 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="oUJ-sU-7K0">
                             <rect key="frame" x="0.0" y="152" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HpT-S2-GG9">
+                                    <rect key="frame" x="137" y="7" width="46" height="30"/>
+                                    <state key="normal" title="Button"/>
+                                    <connections>
+                                        <segue destination="PLS-Nb-ZkH" kind="modal" id="YgC-l9-oLE"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="HpT-S2-GG9" firstAttribute="centerX" secondItem="oUJ-sU-7K0" secondAttribute="centerX" id="BTK-BB-1hk"/>
+                                <constraint firstItem="HpT-S2-GG9" firstAttribute="centerY" secondItem="oUJ-sU-7K0" secondAttribute="centerY" id="vHj-In-wWu"/>
+                            </constraints>
                         </view>
                         <sections>
                             <tableViewSection id="vkG-ma-HVL">
@@ -129,6 +143,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFH-DS-orj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-675" y="381"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1lM-os-6Jf">
+            <objects>
+                <viewController id="PLS-Nb-ZkH" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="40O-yb-5aI"/>
+                        <viewControllerLayoutGuide type="bottom" id="xvT-c9-enu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JFb-oE-4PZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCE-dS-WgI">
+                                <rect key="frame" x="0.0" y="284" width="320" height="284"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="QCE-dS-WgI" secondAttribute="bottom" id="g0t-nD-6TD"/>
+                            <constraint firstAttribute="trailing" secondItem="QCE-dS-WgI" secondAttribute="trailing" id="htx-4o-URr"/>
+                            <constraint firstItem="QCE-dS-WgI" firstAttribute="height" secondItem="JFb-oE-4PZ" secondAttribute="height" multiplier="0.5" id="nRu-B2-3XJ"/>
+                            <constraint firstItem="QCE-dS-WgI" firstAttribute="leading" secondItem="JFb-oE-4PZ" secondAttribute="leading" id="yGf-Ku-I4p"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Fy-sd-Tr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-233" y="1088"/>
         </scene>
         <!--HXSessionDelegateViewController-->
         <scene sceneID="tne-QT-ifu">
